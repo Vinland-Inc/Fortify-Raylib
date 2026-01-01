@@ -2,7 +2,7 @@
 #include "raylib.h"
 #include "audio/SoundPlayer.h"
 
-#define DEFAULT_BUTTON_COLOR WHITE // вот это и снизу мне кажется зря, потому что кнопок будет десятки, те цвета что я выбрал вроде подходят для меню, но точно не везде
+#define DEFAULT_BUTTON_COLOR WHITE //вот это и снизу мне кажется зря, потому что кнопок будет десятки, те цвета что я выбрал вроде подходят для меню, но точно не везде
 #define HOVERED_BUTTON_COLOR YELLOW
 
 namespace extensions {
