@@ -32,5 +32,5 @@ public:
     void on(std::string event_type, std::function<void()> callback); //чтобы добавить реакцию на событие
     void emit(std::string event_type); //чтобы вызывать все реакции
 
-    void render();
+    void process();
 };

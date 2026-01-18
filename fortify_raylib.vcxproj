@@ -137,13 +137,17 @@
     <ClCompile Include="src\audio\SoundPlayer.cpp" />
     <ClCompile Include="src\Extensions.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\screens\gameScreen.cpp" />
     <ClCompile Include="src\screens\menuScreen.cpp" />
+    <ClCompile Include="src\screens\playerCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\audio\SoundPlayer.h" />
     <ClInclude Include="src\Extensions.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\screens\gameScreen.h" />
     <ClInclude Include="src\screens\menuScreen.h" />
+    <ClInclude Include="src\screens\playerCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

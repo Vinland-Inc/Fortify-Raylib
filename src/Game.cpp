@@ -21,10 +21,11 @@ void Game::initWindow()
 void Game::initMenu()
 {
 	menu = new MenuScreen(); //не помню, как malloc пишется, можешь поменять // блять я еще не ебу что такое малок. Но я знаю Рому Малека из сериала Мистер Робот.
+    game = new GameScreen(); //не помню, как malloc пишется, можешь поменять // блять я еще не ебу что такое малок. Но я знаю Рому Малека из сериала Мистер Робот.
 
 	menu->on("play_clicked", [this]() { //потом спроси у меня, че this тут делает
 		std::cout << "play button was clicked\n";
-		//state = GAME;
+		state = GAME;
 	});
 
 	menu->on("settings_clicked", [this]() {
@@ -44,9 +45,10 @@ void Game::Run() //главный while-цикл думаю лучше всего оставить тут
 		switch (state)
 		{
 		case MENU:
-			menu->render();
+			menu->process();
 			break;
 		case GAME:
+            game->process();
 			break;
 		case PAUSE:
 			break;

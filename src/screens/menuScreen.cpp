@@ -44,7 +44,7 @@ void MenuScreen::handleClickOnButton()
     }
 }
 
-void MenuScreen::render() 
+void MenuScreen::process()
 {
     playButton.hover();
     optionsButton.hover();
