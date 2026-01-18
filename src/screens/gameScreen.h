@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "playerCamera.h"
 
+#define CELL_SIZE 16 // потом уберем отсюда все что связано с картой
 
 class GameScreen
 {
@@ -11,9 +12,10 @@ class GameScreen
     ~GameScreen();
 
     void process();
+    void render();
 
   private:
-    Texture2D tileMap; // это вся карта
-    Texture2D tile;    // это одна плитка
+    Texture2D tileMap;
+    Rectangle tileSourceRec; // координаты одной плитки
     PlayerCamera *playerCamera;
 };

@@ -13,11 +13,14 @@ class PlayerCamera
     Camera2D camera;
 
     void process();
+    void zoomCamera();
 
+    bool cameraBeenZoomed;
   private:
     int cameraSpeed;
     float maxCameraZoom;
     float minCameraZoom;
+    float zoomSpeed = 10.0f;
 
     void cameraInit();
     void cameraInputHundler();

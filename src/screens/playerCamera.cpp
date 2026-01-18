@@ -3,6 +3,7 @@
 PlayerCamera::PlayerCamera()
 {
     cameraInit();
+    cameraBeenZoomed = false;
 }
 
 void PlayerCamera::cameraInit()
@@ -10,12 +11,12 @@ void PlayerCamera::cameraInit()
     camera = {0};
     camera.target = {0.0f, 0.0f}; // тока в мире, на которую смотрит камера
     camera.offset = {(float)GetScreenWidth() / 2.0f, (float)GetScreenHeight() / 2.0f}; // смещение относительно target, пишу так чтобы был в центре
-    camera.zoom = 1.0f;                                // масштаб камеры (чем больше тем ближе)
+    camera.zoom = 0.2f;                                // масштаб камеры (чем больше тем ближе)
     camera.rotation = 0.0f;                            // угол поворота камеры
 
     cameraSpeed = CAMERA_DEFAULT_SPEED;
     maxCameraZoom = 3.0f;
-    minCameraZoom = 0.3f;
+    minCameraZoom = 1.0f;
 }
 
 void PlayerCamera::cameraInputHundler()
@@ -45,6 +46,17 @@ void PlayerCamera::cameraInputHundler()
         camera.target.x += move.x * cameraSpeed * GetFrameTime();
         camera.target.y += move.y * cameraSpeed * GetFrameTime();
     }
+}
+
+void PlayerCamera::zoomCamera()
+{
+    // приближается до тех пор пока не достигнет максимального зума
+    if (camera.zoom < maxCameraZoom)
+    {
+        camera.zoom += zoomSpeed * GetFrameTime() * 0.1;
+    }
+    else 
+        cameraBeenZoomed = true;
 }
 
 void PlayerCamera::process()
