@@ -2,7 +2,7 @@
 #include "screens/menuScreen.h"
 #include "screens/gameScreen.h"
 
-typedef enum { MENU, GAME, PAUSE } GameStates;
+typedef enum { MENU, LEVELS, GAME, PAUSE } GameStates;
 
 class Game
 {
@@ -12,12 +12,12 @@ public:
 
 	void Run();
 private:
-	void initWindow(); //функция, чтобы создать окно
+	void initWindow(); 
 	void initMenu();
 
 	bool isRunning;
-	GameStates state; //она инициализируется в конструкторе
+	GameStates state; 
 	int FPS;
-	MenuScreen *menu; //обсудим потом, но я пока сделаю так, чтобы самому контролировать, когда вызывается конструктор (если сделать простой переменной, то исключение, так он начинает рисовать кнопки на еще не созданном окне)
-    GameScreen *game;
+	MenuScreen *menu; 
+    GameScreen *gameScreen; //у нас класс Game, прошлое название выглядело так, будто бы это обьект Game, а не GameScreen, упростим жизнь читателям, ибо я сам запутался сначала
 };

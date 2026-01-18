@@ -14,6 +14,8 @@ class PlayerCamera
 
     void process();
     void zoomCamera();
+    void setCameraTarget(Vector2 target);
+    void move(Vector2 delta);
 
     bool cameraBeenZoomed;
   private:
@@ -23,5 +25,5 @@ class PlayerCamera
     float zoomSpeed = 10.0f;
 
     void cameraInit();
-    void cameraInputHundler();
+    void cameraInputHandler();
 };

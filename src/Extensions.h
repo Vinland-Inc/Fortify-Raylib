@@ -26,5 +26,4 @@ namespace extensions {
 
 		SoundPlayer* sound = nullptr; //будем хранить указатель на SoundPlayer из Menu, это меньше памяти
 	};
-
 }

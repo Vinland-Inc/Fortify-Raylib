@@ -17,7 +17,7 @@ MenuScreen::MenuScreen()
     optionsButton.texture = LoadTexture("sprites/UI/buttons/Options_button.png");
     optionsButton.rect = {
         (float)screenWidth / 2 - (float)optionsButton.texture.width / 4.35f,
-        (float)screenHeight / 2.7f, // чуть ниже предыдущего
+        (float)screenHeight / 2.7f,
         (float)optionsButton.texture.width / 2.5f,
         (float)optionsButton.texture.height / 2.5f 
     };

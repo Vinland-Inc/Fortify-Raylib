@@ -19,32 +19,15 @@ void PlayerCamera::cameraInit()
     minCameraZoom = 1.0f;
 }
 
-void PlayerCamera::cameraInputHundler()
+void PlayerCamera::cameraInputHandler()
 {
-    Vector2 move = {0, 0};
-    if (IsKeyDown(KEY_D))
-        move.x += 1.0f;
-    if (IsKeyDown(KEY_A))
-        move.x -= 1.0f;
-    if (IsKeyDown(KEY_W))
-        move.y -= 1.0f;
-    if (IsKeyDown(KEY_S))
-        move.y += 1.0f;
-
     cameraSpeed = IsKeyDown(KEY_LEFT_SHIFT) ? CAMERA_SHIFT_PRESSED_SPEED : CAMERA_DEFAULT_SPEED;
 
     float wheel = GetMouseWheelMove();
     if (wheel != 0)
     {
         camera.zoom += wheel * 0.1f;
-        camera.zoom = Clamp(camera.zoom,minCameraZoom, maxCameraZoom);
-    }
-
-    if (move.x != 0 || move.y != 0)
-    {
-        move = Vector2Normalize(move); // нормализует движение по диагонали
-        camera.target.x += move.x * cameraSpeed * GetFrameTime();
-        camera.target.y += move.y * cameraSpeed * GetFrameTime();
+        camera.zoom = Clamp(camera.zoom, minCameraZoom, maxCameraZoom);
     }
 }
 
@@ -59,9 +42,28 @@ void PlayerCamera::zoomCamera()
         cameraBeenZoomed = true;
 }
 
+void PlayerCamera::setCameraTarget(Vector2 target)
+{
+    camera.target = target;
+}
+
+void PlayerCamera::move(Vector2 delta)
+{
+    if (!cameraBeenZoomed)
+        return;
+
+    if (delta.x != 0 || delta.y != 0)
+    {
+        float dt = GetFrameTime();
+        delta = Vector2Normalize(delta);
+        camera.target.x += delta.x * cameraSpeed * dt;
+        camera.target.y += delta.y * cameraSpeed * dt; //вместо двух операций GetFrameTime, как было, стала одна, это оптимизация, брат
+    }
+}
+
 void PlayerCamera::process()
 {
-    cameraInputHundler();
+    cameraInputHandler();
 }
 
 PlayerCamera::~PlayerCamera()
