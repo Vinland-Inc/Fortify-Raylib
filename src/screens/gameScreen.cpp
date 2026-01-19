@@ -1,6 +1,6 @@
 #include "gameScreen.h"
 
-GameScreen::GameScreen() : isMovingByMouse(false), lastPos({})
+GameScreen::GameScreen() : isMovingByMouse(false), backgroundColor(DARKGRAY), lastPos({})
 {
     map = {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -52,7 +52,6 @@ void GameScreen::process()
 {
     handleClick();
     handleInput();
-    ClearBackground(DARKGRAY);
     
     BeginMode2D(playerCamera->camera);
 

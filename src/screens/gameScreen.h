@@ -10,6 +10,8 @@
 class GameScreen
 {
   public:
+    Color backgroundColor;
+
     GameScreen();
     ~GameScreen();
 

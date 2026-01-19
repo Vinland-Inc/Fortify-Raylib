@@ -6,24 +6,25 @@
 #define HOVERED_BUTTON_COLOR YELLOW
 
 namespace extensions {
-
 	class Button {
 	public:
 		Button();
-		~Button();
+		virtual ~Button();
 
 		void hover(); //функция, что будет менять цвет, если мышка наведена
-		bool isClicked(); //будем проверять тут, нажата ли кнопка
-		void render() const;
+		virtual bool isClicked(); //будем проверять тут, нажата ли кнопка
+		virtual void render() const;
 
 		void setClickSound(SoundPlayer* sound);
 
 		Color color = DEFAULT_BUTTON_COLOR;
 		Texture2D texture;
 		Rectangle rect;
-	private:
+	protected:
 		bool isHovered; //тут будем хранить, наведена ли в текущий кадр кнопка или нет, чтобы кучу функций проверки не вызывать, онли в hover
 
 		SoundPlayer* sound = nullptr; //будем хранить указатель на SoundPlayer из Menu, это меньше памяти
 	};
+
+	void DrawRectangleLinesEx(Rectangle rect, float lineThick, Color color);
 }

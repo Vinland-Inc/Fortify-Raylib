@@ -1,20 +1,17 @@
 #pragma once
-#include <iostream>
-#include <functional> //это надо для std::function<void>, что-то типа предиката у вас
-#include <map> //дефолтный map, который будет событие и функцию, которая должна быть вызвана на этот событие
 #include "raylib.h"
+#include "../eventhandler/EventHandler.h"
 #include "../Extensions.h"
 #include "../audio/SoundPlayer.h"
 
-class MenuScreen
+class MenuScreen final : public EventHandler //класс, который наследует логику реакции на события, final - т.е от него наследоваться уже низя
 {
 private:
-    Color menuBackground;
-
     int screenWidth = GetScreenWidth();
     int screenHeight = GetScreenHeight();
 
     void handleClickOnButton();
+    void render();
 
     //один обьект звука для всех кнопок
     SoundPlayer clickSound;
@@ -22,15 +19,11 @@ private:
     extensions::Button playButton;
     extensions::Button optionsButton;
     extensions::Button exitButton;
-
-    //map для хранения типа события и реакции на него (callback)
-    std::map<std::string, std::function<void()>> callbacks;
 public:
+    Color backgroundColor;
+
     MenuScreen();
     ~MenuScreen();
-
-    void on(std::string event_type, std::function<void()> callback); //чтобы добавить реакцию на событие
-    void emit(std::string event_type); //чтобы вызывать все реакции
 
     void process();
 };

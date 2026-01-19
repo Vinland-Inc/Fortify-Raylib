@@ -19,7 +19,7 @@ bool extensions::Button::isClicked()
     if (isClicked && sound)
         sound->play();
 
-    return isClicked; //если наведена и нажата, то true
+    return isClicked;
 }
 
 void extensions::Button::render() const
@@ -35,4 +35,16 @@ void extensions::Button::setClickSound(SoundPlayer* sound)
 extensions::Button::~Button()
 {
     UnloadTexture(texture);
+}
+
+void extensions::DrawRectangleLinesEx(Rectangle rect, float lineThick, Color color)
+{
+    // Верхняя линия
+    DrawRectangle(rect.x, rect.y, rect.width, lineThick, WHITE);
+    // Нижняя линия
+    DrawRectangle(rect.x, rect.y + rect.height + 100 - lineThick, rect.width, lineThick, WHITE);
+    // Левая линия
+    DrawRectangle(rect.x, rect.y, lineThick, rect.height + 100, WHITE);
+    // Правая линия
+    DrawRectangle(rect.x + rect.width - lineThick, rect.y, lineThick, rect.height + 100, WHITE);
 }

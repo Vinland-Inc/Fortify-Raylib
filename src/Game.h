@@ -1,6 +1,7 @@
 #pragma once
 #include "screens/menuScreen.h"
 #include "screens/gameScreen.h"
+#include "screens/levelsScreen.h"
 
 typedef enum { MENU, LEVELS, GAME, PAUSE } GameStates;
 
@@ -14,10 +15,13 @@ public:
 private:
 	void initWindow(); 
 	void initMenu();
+	void initLevels();
 
+	Color backgroundColor;
 	bool isRunning;
 	GameStates state; 
 	int FPS;
 	MenuScreen *menu; 
+	LevelsScreen* levelsScreen;
     GameScreen *gameScreen; //у нас класс Game, прошлое название выглядело так, будто бы это обьект Game, а не GameScreen, упростим жизнь читателям, ибо я сам запутался сначала
 };

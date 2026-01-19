@@ -1,9 +1,8 @@
 ﻿#include "MenuScreen.h"
 
-MenuScreen::MenuScreen()
+MenuScreen::MenuScreen() : EventHandler(), backgroundColor(BLACK)
 {
     clickSound.load("src/audio/click.wav");
-    menuBackground = BLACK;
 
     playButton.texture = LoadTexture("sprites/UI/buttons/Play_button.png");
     playButton.rect = {
@@ -44,6 +43,13 @@ void MenuScreen::handleClickOnButton()
     }
 }
 
+void MenuScreen::render()
+{
+    playButton.render();
+    optionsButton.render();
+    exitButton.render();
+}
+
 void MenuScreen::process()
 {
     playButton.hover();
@@ -52,24 +58,7 @@ void MenuScreen::process()
 
     handleClickOnButton();
 
-    ClearBackground(menuBackground);
-
-    playButton.render();
-    optionsButton.render();
-    exitButton.render();
-}
-
-void MenuScreen::on(std::string event_type, std::function<void()> callback)
-{
-    callbacks.emplace(event_type, callback); //будь уверен, что есть лишь одна реакция на одно событие, иначе пизда // почему? часто бывает что много объектов должны получить и обработать сигнал
-}
-
-void MenuScreen::emit(std::string event_type)
-{
-    if (callbacks.contains(event_type)) {
-        auto& callback = callbacks[event_type];
-        callback(); //вызываем говно 
-    }
+    render();
 }
 
 MenuScreen::~MenuScreen() //внутри button деструктор удаляет текстуру

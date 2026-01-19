@@ -1,10 +1,12 @@
 #include "Game.h"
 
-Game::Game() : isRunning(true), state(MENU), FPS(60)
+Game::Game() : isRunning(true), state(MENU), FPS(60), backgroundColor(BLACK)
 {	
 	initWindow();
 	InitAudioDevice();
 	initMenu();
+	initLevels();
+	gameScreen = new GameScreen();
 }
 
 void Game::initWindow()
@@ -17,33 +19,48 @@ void Game::initWindow()
 void Game::initMenu()
 {
 	menu = new MenuScreen(); 
-    gameScreen = new GameScreen();
 
-	menu->on("play_clicked", [this]() { 
+	menu->on("play_clicked", std::function<void()>([this]() {
 		std::cout << "play button was clicked\n";
-		state = GAME;
-	});
+		state = LEVELS;
+	}));
 
-	menu->on("settings_clicked", [this]() {
+	menu->on("settings_clicked", std::function<void()>([this]() {
 		std::cout << "settings clicked\n";
-	});
+	}));
 
-	menu->on("exit_clicked", [this]() {
+	menu->on("exit_clicked", std::function<void()>([this]() {
 		isRunning = false; 
-	});
+	}));
 }
 
-void Game::Run() //главный while-цикл думаю лучше всего оставить тут
+void Game::initLevels()
+{
+	levelsScreen = new LevelsScreen();
+	levelsScreen->on("level_clicked", std::function<void(int)>([this](int levelNumber) {
+		std::cout << "Selected level: " << levelNumber << '\n';
+		state = GAME; //пока так
+	}));
+}
+
+void Game::Run() 
 {
 	while (!WindowShouldClose() && isRunning) {
 		BeginDrawing();
+		ClearBackground(backgroundColor);
 
 		switch (state)
 		{
 		case MENU:
+			backgroundColor = menu->backgroundColor;
 			menu->process();
 			break;
+		case LEVELS:
+			backgroundColor = levelsScreen->backgroundColor;
+			levelsScreen->process();
+			break;
 		case GAME:
+			backgroundColor = gameScreen->backgroundColor;
             gameScreen->process();
 			break;
 		case PAUSE:
@@ -56,10 +73,12 @@ void Game::Run() //главный while-цикл думаю лучше всего оставить тут
 
 Game::~Game()
 {
-	if (menu) //может быть исключение, если указатель не указывает на что либо, если будем в будущем отчищать их как-либо, то сразу устанвливаем в nullptr, иначе эта проверка не сработает 
-		delete menu;
 	if (gameScreen)
 		delete gameScreen;
+	if (levelsScreen)
+		delete levelsScreen;
+	if (menu) //может быть исключение, если указатель не указывает на что-либо, если будем в будущем отчищать их как-либо, то сразу устанвливаем в nullptr, иначе эта проверка не сработает 
+		delete menu;
 	CloseAudioDevice();
 	CloseWindow();
 }
