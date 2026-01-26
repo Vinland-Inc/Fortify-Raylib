@@ -23,5 +23,5 @@ private:
 	int FPS;
 	MenuScreen *menu; 
 	LevelsScreen* levelsScreen;
-    GameScreen *gameScreen; //у нас класс Game, прошлое название выглядело так, будто бы это обьект Game, а не GameScreen, упростим жизнь читателям, ибо я сам запутался сначала
+    GameScreen *gameScreen;
 };

@@ -57,7 +57,7 @@ void PlayerCamera::move(Vector2 delta)
         float dt = GetFrameTime();
         delta = Vector2Normalize(delta);
         camera.target.x += delta.x * cameraSpeed * dt;
-        camera.target.y += delta.y * cameraSpeed * dt; //вместо двух операций GetFrameTime, как было, стала одна, это оптимизация, брат
+        camera.target.y += delta.y * cameraSpeed * dt;
     }
 }
 

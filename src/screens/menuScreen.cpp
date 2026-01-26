@@ -3,11 +3,14 @@
 MenuScreen::MenuScreen() : EventHandler(), backgroundColor(BLACK)
 {
     clickSound.load("src/audio/click.wav");
+    float asdakjnjkasd = (GetScreenHeight() - 3 * playButton.texture.height - 150 * 3) / 2; // ыыыыыыыыы магические числа ффыфыыыыыыыы блять убирай давай мне поебать
+    float asdakjnjkasd2 = asdakjnjkasd + 150 + optionsButton.texture.height;
+    float asdakjnjkasd3 = asdakjnjkasd2 + 150 + exitButton.texture.height;
 
     playButton.texture = LoadTexture("sprites/UI/buttons/Play_button.png");
     playButton.rect = {
         (float)screenWidth / 2 - (float)playButton.texture.width / 4,
-        (float)screenHeight / 4,
+        asdakjnjkasd,
         (float)playButton.texture.width / 2.5f,
         (float)playButton.texture.height / 2.5f
     };
@@ -16,7 +19,7 @@ MenuScreen::MenuScreen() : EventHandler(), backgroundColor(BLACK)
     optionsButton.texture = LoadTexture("sprites/UI/buttons/Options_button.png");
     optionsButton.rect = {
         (float)screenWidth / 2 - (float)optionsButton.texture.width / 4.35f,
-        (float)screenHeight / 2.7f,
+        asdakjnjkasd2,
         (float)optionsButton.texture.width / 2.5f,
         (float)optionsButton.texture.height / 2.5f 
     };
@@ -25,7 +28,7 @@ MenuScreen::MenuScreen() : EventHandler(), backgroundColor(BLACK)
     exitButton.texture = LoadTexture("sprites/UI/buttons/Exit_button.png");
     exitButton.rect = {
         (float)screenWidth / 2 - (float)exitButton.texture.width / 4,
-        (float)screenHeight / 2.045f,
+        asdakjnjkasd3,
         (float)exitButton.texture.width / 2.5f,
         (float)exitButton.texture.height / 2.5f 
     };

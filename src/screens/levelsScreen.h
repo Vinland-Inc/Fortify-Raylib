@@ -14,7 +14,7 @@ public:
 
 	Level();
 	~Level();
-
+	
 
 	bool isClicked() override;
 	void render() const override;

@@ -77,7 +77,7 @@ Game::~Game()
 		delete gameScreen;
 	if (levelsScreen)
 		delete levelsScreen;
-	if (menu) //может быть исключение, если указатель не указывает на что-либо, если будем в будущем отчищать их как-либо, то сразу устанвливаем в nullptr, иначе эта проверка не сработает 
+	if (menu)
 		delete menu;
 	CloseAudioDevice();
 	CloseWindow();
