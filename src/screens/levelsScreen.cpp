@@ -2,6 +2,10 @@
 
 LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 {
+    sharedLocker = LoadTexture("sprites/UI/level-locker.png");
+    sharedLocker.height *= 4; // оно какоето маленькое
+    sharedLocker.width *= 4;
+
 	const int HORIZONTAL_GAP = 20, VERTICAL_GAP = 200;
 	int row = 0, column = 0;
 	for (int i = 0; i < 8; ++i) { // Начинаем с 0
@@ -12,11 +16,11 @@ LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 		level.levelNumber = i + 1;
 		level.name = "Dangerous dungeon";
 		level.texture = LoadTexture("sprites/map/spritesheet.png");
+        level.setLocker(&sharedLocker);
 		float x = float(screenWidth / 2) - 840 + column * (LEVEL_BUTTON_WIDTH + HORIZONTAL_GAP); //тут высчитал, почему 840
 		float y = float(screenHeight / 2) - 330 + row * (LEVEL_BUTTON_HEIGHT + VERTICAL_GAP); //тут наугад сука почему-то не 300, а 340, потом подумаю
 		level.rect = { x, y, LEVEL_BUTTON_WIDTH, LEVEL_BUTTON_HEIGHT };
 		level.isClosed = i >= 1; //пока те уровни, что больше или равны 1, недоступны нахуй, потом это все откуда-то читать надо
-
 		levels.push_back(level); //можно пофиксить трабл с замком, сделав вектор хранящим не обьекты, а указатель на обьекты Level, но это в крайнем случае
 	}
 }
@@ -33,11 +37,13 @@ void LevelsScreen::process()
 	}
 }
 
-LevelsScreen::~LevelsScreen() {}
+LevelsScreen::~LevelsScreen()
+{
+    UnloadTexture(sharedLocker);
+}
 
 Level::Level() : extensions::Button(), isClosed(true), levelNumber(0)
 { 
-	//locker = LoadTexture("sprites/UI/level-locker.png");
 }
 
 bool Level::isClicked()
@@ -62,17 +68,20 @@ void Level::render() const
 		isClosed ? GRAY : WHITE
 	);
 
-	//хуйня с этой текстурой связана с добавлением в вектор, там создается копия, этот экземпляр удаляется - очищается текстура, в векторе копия указывает на мусорную хуету, как я понял
-	//if (isClosed) {
-	//	DrawTexturePro(
-	//		locker,
-	//		Rectangle{ 0, 0, float(locker.width), float(locker.height) },
-	//		Rectangle({ rect.x + (rect.width - 30) / 2, rect.y + (rect.height + 100 - 40) / 2, 30, 40 }),
-	//		Vector2{ 0, 0 },
-	//		0,
-	//		WHITE
-	//	);
-	//}
+	if (isClosed && locker) {
+		DrawTexturePro(
+			*locker,
+			Rectangle{ 0, 0, float(locker->width), float(locker->height) },
+			Rectangle({ 
+				rect.x + (rect.width - (float)locker->width) / 2, 
+				rect.y + (rect.height + 70 - (float)locker->height) / 2, 
+				(float)locker->width, 
+				(float)locker->height }),
+			Vector2{ 0, 0 },
+			0,
+			WHITE
+		);
+	}
 
 	DrawText(
 		name.c_str(), //чтобы из string в const char*
@@ -85,8 +94,11 @@ void Level::render() const
 	extensions::DrawRectangleLinesEx(rect, thickness, WHITE);
 }
 
+void Level::setLocker(Texture2D* lockerPtr)
+{
+    locker = lockerPtr;
+}
+
 Level::~Level()
 {
-	//UnloadTexture(locker);
-	//texture разгружается в деструкторе BUTTON
 }

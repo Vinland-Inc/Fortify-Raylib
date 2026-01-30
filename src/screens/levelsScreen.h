@@ -18,8 +18,14 @@ public:
 
 	bool isClicked() override;
 	void render() const override;
-private:
-	//Texture2D locker;
+    void setLocker(Texture2D *lockerPtr);
+
+	//Texture2D getLevelTexture(int level); // пока что эти и два в прайват не буду реализовывать пока у нас не будет всех текстур и названий уровней
+    //std::string getLevelName(int level);
+  private:
+    //Texture2D levelTextures[8];
+	//std::string levelNames[8];
+	Texture2D* locker;
 };
 
 class LevelsScreen final : public EventHandler {
@@ -34,4 +40,5 @@ private:
 	const int screenWidth = GetScreenWidth();
 	const int screenHeight = GetScreenHeight();
 	std::vector<Level> levels;
+    Texture2D sharedLocker;
 };
