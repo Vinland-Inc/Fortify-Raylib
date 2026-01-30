@@ -3,8 +3,8 @@
 LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 {
     sharedLocker = LoadTexture("sprites/UI/level-locker.png");
-    sharedLocker.height *= 4; // оно какоето маленькое
-    sharedLocker.width *= 4;
+    sharedLocker.height *= 3; // оно какоето маленькое
+    sharedLocker.width *= 3;
 
 	const int HORIZONTAL_GAP = 20, VERTICAL_GAP = 200;
 	int row = 0, column = 0;
