@@ -1,25 +1,29 @@
 #pragma once
-#include "raylib.h"
-#include "../eventhandler/EventHandler.h"
 #include "../Extensions.h"
 #include "../audio/SoundPlayer.h"
+#include "../eventhandler/EventHandler.h"
+#include "raylib.h"
 
-class MenuScreen final : public EventHandler //класс, который наследует логику реакции на события, final - т.е от него наследоваться уже низя
+class MenuScreen final : public EventHandler
 {
-private:
+  private:
     int screenWidth = GetScreenWidth();
     int screenHeight = GetScreenHeight();
 
     void handleClickOnButton();
     void render();
+    void setupButton(extensions::Button &button, float yPosition);
 
-    //один обьект звука для всех кнопок
     SoundPlayer clickSound;
 
     extensions::Button playButton;
     extensions::Button optionsButton;
     extensions::Button exitButton;
-public:
+
+    float buttonSpacing = 150;
+    float buttonScale = 2.5f;
+
+  public:
     Color backgroundColor;
 
     MenuScreen();

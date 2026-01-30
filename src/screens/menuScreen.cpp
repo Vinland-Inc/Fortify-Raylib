@@ -1,47 +1,46 @@
 ﻿#include "MenuScreen.h"
 
-MenuScreen::MenuScreen() : EventHandler(), backgroundColor(BLACK)
+// это все дипсик написал, сам центруй свои ебаные кнопки даун
+
+MenuScreen::MenuScreen() : EventHandler(), backgroundColor(BLACK) 
 {
     clickSound.load("src/audio/click.wav");
-    float asdakjnjkasd = (GetScreenHeight() - 3 * playButton.texture.height - 150 * 3) / 2; // ыыыыыыыыы магические числа ффыфыыыыыыыы блять убирай давай мне поебать
-    float asdakjnjkasd2 = asdakjnjkasd + 150 + optionsButton.texture.height;
-    float asdakjnjkasd3 = asdakjnjkasd2 + 150 + exitButton.texture.height;
+
+    float startY = (GetScreenHeight() - (3 * 100 + 2 * buttonSpacing)) / 2;
 
     playButton.texture = LoadTexture("sprites/UI/buttons/Play_button.png");
-    playButton.rect = {
-        (float)screenWidth / 2 - (float)playButton.texture.width / 4,
-        asdakjnjkasd,
-        (float)playButton.texture.width / 2.5f,
-        (float)playButton.texture.height / 2.5f
-    };
+    setupButton(playButton, startY);
     playButton.setClickSound(&clickSound);
 
     optionsButton.texture = LoadTexture("sprites/UI/buttons/Options_button.png");
-    optionsButton.rect = {
-        (float)screenWidth / 2 - (float)optionsButton.texture.width / 4.35f,
-        asdakjnjkasd2,
-        (float)optionsButton.texture.width / 2.5f,
-        (float)optionsButton.texture.height / 2.5f 
-    };
+    setupButton(optionsButton, startY + 100 + buttonSpacing);
     optionsButton.setClickSound(&clickSound);
 
     exitButton.texture = LoadTexture("sprites/UI/buttons/Exit_button.png");
-    exitButton.rect = {
-        (float)screenWidth / 2 - (float)exitButton.texture.width / 4,
-        asdakjnjkasd3,
-        (float)exitButton.texture.width / 2.5f,
-        (float)exitButton.texture.height / 2.5f 
-    };
+    setupButton(exitButton, startY + 2 * (100 + buttonSpacing));
     exitButton.setClickSound(&clickSound);
+}
+
+void MenuScreen::setupButton(extensions::Button &button, float yPosition)
+{
+    float buttonWidth = button.texture.width / buttonScale;
+    float buttonHeight = button.texture.height / buttonScale;
+
+    button.rect = {(float)screenWidth / 2 - buttonWidth / 2, yPosition, buttonWidth, buttonHeight};
 }
 
 void MenuScreen::handleClickOnButton()
 {
-    if (playButton.isClicked()) {
+    if (playButton.isClicked())
+    {
         emit("play_clicked");
-    } else if (optionsButton.isClicked()) {
+    }
+    else if (optionsButton.isClicked())
+    {
         emit("settings_clicked");
-    } else if (exitButton.isClicked()) {
+    }
+    else if (exitButton.isClicked())
+    {
         emit("exit_clicked");
     }
 }
@@ -64,7 +63,6 @@ void MenuScreen::process()
     render();
 }
 
-MenuScreen::~MenuScreen() //внутри button деструктор удаляет текстуру
+MenuScreen::~MenuScreen()
 {
-
 }
