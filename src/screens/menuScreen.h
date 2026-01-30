@@ -20,7 +20,7 @@ class MenuScreen final : public EventHandler
     extensions::Button optionsButton;
     extensions::Button exitButton;
 
-    float buttonSpacing = 150;
+    float buttonSpacing = 25;
     float buttonScale = 2.5f;
 
   public:
