@@ -17,11 +17,11 @@ LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 		level.name = "Dangerous dungeon";
 		level.texture = LoadTexture("sprites/map/spritesheet.png");
         level.setLocker(&sharedLocker);
-		float x = float(screenWidth / 2) - 840 + column * (LEVEL_BUTTON_WIDTH + HORIZONTAL_GAP); //тут высчитал, почему 840
-		float y = float(screenHeight / 2) - 330 + row * (LEVEL_BUTTON_HEIGHT + VERTICAL_GAP); //тут наугад сука почему-то не 300, а 340, потом подумаю
+		float x = float(screenWidth / 2) - 840 + column * (LEVEL_BUTTON_WIDTH + HORIZONTAL_GAP);
+		float y = float(screenHeight / 2) - 330 + row * (LEVEL_BUTTON_HEIGHT + VERTICAL_GAP); 
 		level.rect = { x, y, LEVEL_BUTTON_WIDTH, LEVEL_BUTTON_HEIGHT };
-		level.isClosed = i >= 1; //пока те уровни, что больше или равны 1, недоступны нахуй, потом это все откуда-то читать надо
-		levels.push_back(level); //можно пофиксить трабл с замком, сделав вектор хранящим не обьекты, а указатель на обьекты Level, но это в крайнем случае
+		level.isClosed = i >= 1; 
+		levels.push_back(level);
 	}
 }
 
@@ -48,7 +48,7 @@ Level::Level() : extensions::Button(), isClosed(true), levelNumber(0)
 
 bool Level::isClicked()
 {
-	bool isClicked = !isClosed && isHovered && IsMouseButtonReleased(MOUSE_BUTTON_LEFT); //если уровень доступен, наведен и ебанная левая кнопка мыши отжата, значит по нему нажали все-таки
+	bool isClicked = !isClosed && isHovered && IsMouseButtonReleased(MOUSE_BUTTON_LEFT);
 	if (isClicked && sound)
 		sound->play();
 

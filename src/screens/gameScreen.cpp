@@ -1,3 +1,4 @@
+#include <cmath> // для правильного округления позиции мыши
 #include "gameScreen.h"
 
 GameScreen::GameScreen() : isMovingByMouse(false), backgroundColor(DARKGRAY), lastPos({})
@@ -52,10 +53,26 @@ void GameScreen::process()
 {
     handleClick();
     handleInput();
-    
+
+
+    // примерно так будет выглядеть логика строительства туреллей, она уже работает расскоментируй чтобы тестануть
+  
+    //Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), playerCamera->camera); // перевод экранных координат в мировые
+    //int mouseGridX = (int)floor(mouseWorldPos.x / CELL_SIZE);
+    //int mouseGridY = (int)floor(mouseWorldPos.y / CELL_SIZE);
+    //if (mouseGridX >= 0 && mouseGridY >= 0 && mouseGridX < map.size() && mouseGridY < map[0].size())
+    //    colorrr = map[mouseGridX][mouseGridY] == TILE_WALL ? WHITE : RED;
+    //else
+    //    colorrr = RED;
+    //DrawTexture(tileMap, GetMouseX() - tileMap.width / 2, GetMouseY() - tileMap.height / 2, colorrr);
+    //DrawText(TextFormat("mouseX: %d\n\nmouseY: %d", mouseGridX, mouseGridY), 15, 50, 25, WHITE);
+
+
     BeginMode2D(playerCamera->camera);
 
     playerCamera->cameraBeenZoomed ? playerCamera->process() : playerCamera->zoomCamera();
+
+    
 
     render();
     EndMode2D();

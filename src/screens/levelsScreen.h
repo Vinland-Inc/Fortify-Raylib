@@ -19,9 +19,12 @@ public:
 	bool isClicked() override;
 	void render() const override;
     void setLocker(Texture2D *lockerPtr);
-
-	//Texture2D getLevelTexture(int level); // пока что эти и два в прайват не буду реализовывать пока у нас не будет всех текстур и названий уровней
-    //std::string getLevelName(int level);
+	
+	// вот эти 2 переменные и те что в прайват которые закоммичены наверно надо вынести в какуюто структуру по типу
+    // LevelsConfig, и наверно надо чтобы GameScreen мог их читать, чтобы брать например количество и тип врагов для
+    // спавна на уровне, карту, название, и дохуя чего чего еще
+    // Texture2D getLevelTexture(int level);
+    // std::string getLevelName(int level);
   private:
     //Texture2D levelTextures[8];
 	//std::string levelNames[8];

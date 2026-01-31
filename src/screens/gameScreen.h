@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include "playerCamera.h"
 
-#define CELL_SIZE 16 // потом уберем отсюда все что связано с картой
+#define CELL_SIZE 16
 #define TILE_WALL 1
 
 class GameScreen
@@ -17,7 +17,7 @@ class GameScreen
 
     void process();
     void render();
-
+    int currentLevel;
   private:
     void handleClick();
     void handleInput(); //чтобы обработать нажатие клавиатуры
@@ -31,4 +31,7 @@ class GameScreen
     //Для движения
     bool isMovingByMouse;
     Vector2 lastPos;
+
+
+    Color colorrr = WHITE; // эт цвет объекта строительства, потом уберем в какой нибудь BuildingManager
 };
