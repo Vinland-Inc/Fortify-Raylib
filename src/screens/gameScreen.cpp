@@ -30,8 +30,8 @@ void GameScreen::process()
     //Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), playerCamera->camera); // перевод экранных координат в мировые
     //int mouseGridX = (int)floor(mouseWorldPos.x / CELL_SIZE);
     //int mouseGridY = (int)floor(mouseWorldPos.y / CELL_SIZE);
-    //if (mouseGridX >= 0 && mouseGridY >= 0 && mouseGridX < map.size() && mouseGridY < map[0].size())
-    //    colorrr = map[mouseGridX][mouseGridY] == TILE_WALL ? WHITE : RED;
+    //if (mouseGridX >= 0 && mouseGridY >= 0 && mouseGridX < map[0].size() && mouseGridY < map.size())
+    //    colorrr = map[mouseGridY][mouseGridX] == TILE_WALL ? WHITE : RED;
     //else
     //    colorrr = RED;
     //DrawTexture(tileMap, GetMouseX() - tileMap.width / 2, GetMouseY() - tileMap.height / 2, colorrr);
