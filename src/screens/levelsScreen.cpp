@@ -1,10 +1,13 @@
+#include <fstream>
 #include "levelsScreen.h"
 
 LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 {
     sharedLocker = LoadTexture("sprites/UI/level-locker.png");
-    sharedLocker.height *= 3; // оно какоето маленькое
+    sharedLocker.height *= 3;
     sharedLocker.width *= 3;
+
+	lastCompletedLevel = loadLastCompletedLevel();
 
 	const int HORIZONTAL_GAP = 20, VERTICAL_GAP = 200;
 	int row = 0, column = 0;
@@ -20,7 +23,7 @@ LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 		float x = float(screenWidth / 2) - 840 + column * (LEVEL_BUTTON_WIDTH + HORIZONTAL_GAP);
 		float y = float(screenHeight / 2) - 330 + row * (LEVEL_BUTTON_HEIGHT + VERTICAL_GAP); 
 		level.rect = { x, y, LEVEL_BUTTON_WIDTH, LEVEL_BUTTON_HEIGHT };
-		level.isClosed = i >= 1; 
+        level.isClosed = i >= lastCompletedLevel; 
 		levels.push_back(level);
 	}
 }
@@ -35,6 +38,20 @@ void LevelsScreen::process()
 		
 		level.render();
 	}
+}
+
+int LevelsScreen::loadLastCompletedLevel() const
+{
+    std::fstream file("src/.last_completed_level.txt");
+    if (!file.is_open())
+    {
+        std::cerr << "Couldn't open the file for reading\n";
+        return 1;
+    }
+    
+	int value;
+    file >> value;
+    return value;
 }
 
 LevelsScreen::~LevelsScreen()

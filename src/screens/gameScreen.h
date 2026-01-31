@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <map>
 #include "raylib.h"
 #include "playerCamera.h"
 
@@ -17,7 +18,7 @@ class GameScreen
 
     void process();
     void render();
-    int currentLevel;
+    void mapInit(int levelNumber);
   private:
     void handleClick();
     void handleInput(); //чтобы обработать нажатие клавиатуры
@@ -34,4 +35,5 @@ class GameScreen
 
 
     Color colorrr = WHITE; // эт цвет объекта строительства, потом уберем в какой нибудь BuildingManager
+    std::map<int, std::string> levelPaths; // это тоже должно быть не тут я не ебу куда кинуть
 };

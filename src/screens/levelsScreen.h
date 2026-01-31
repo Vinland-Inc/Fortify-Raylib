@@ -40,6 +40,8 @@ public:
 
 	void process();
 private:
+    int lastCompletedLevel = 1;
+    int loadLastCompletedLevel() const;
 	const int screenWidth = GetScreenWidth();
 	const int screenHeight = GetScreenHeight();
 	std::vector<Level> levels;
