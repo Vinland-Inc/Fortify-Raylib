@@ -16,6 +16,7 @@ class GameScreen
     GameScreen();
     ~GameScreen();
 
+    void activate();
     void process();
     void render();
     void mapInit(int levelNumber);

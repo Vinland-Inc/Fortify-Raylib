@@ -9,10 +9,17 @@ GameScreen::GameScreen() : isMovingByMouse(false), backgroundColor(DARKGRAY), la
     mapInit(1);
 
     playerCamera = new PlayerCamera;
-    playerCamera->setCameraTarget({ float((map.size() / 2) * CELL_SIZE), float((map[0].size() / 2) * CELL_SIZE) });
+    playerCamera->setCameraTarget({float((map.size() / 2) * CELL_SIZE), float((map[0].size() / 2) * CELL_SIZE)});
     tileMap = LoadTexture("sprites/map/spritesheet.png");
 
-    tileSourceRec = {CELL_SIZE - 1, (CELL_SIZE * 8) - 1, CELL_SIZE + 1, CELL_SIZE + 1}; 
+    tileSourceRec = {CELL_SIZE - 1, (CELL_SIZE * 8) - 1, CELL_SIZE + 1, CELL_SIZE + 1};
+}
+
+void GameScreen::activate()
+{
+    playerCamera->cameraBeenZoomed = false;
+    playerCamera->camera.zoom = 0.2f;
+    playerCamera->setCameraTarget({float((map.size() / 2) * CELL_SIZE), float((map[0].size() / 2) * CELL_SIZE)});
 }
 
 void GameScreen::process()

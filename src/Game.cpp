@@ -11,9 +11,10 @@ Game::Game() : isRunning(true), state(MENU), FPS(60), backgroundColor(BLACK)
 
 void Game::initWindow()
 {
-	SetConfigFlags(FLAG_FULLSCREEN_MODE);
-	InitWindow(0, 0, "Fortify");
-	SetTargetFPS(FPS);
+    SetConfigFlags(FLAG_WINDOW_UNDECORATED); // убирает рамки окна, мб поможет решить проблему с зависанием игры
+    int monitor = GetCurrentMonitor();
+    InitWindow(GetMonitorWidth(monitor), GetMonitorHeight(monitor), "Fortify");
+    SetTargetFPS(FPS);
 }
 
 void Game::initMenu()
@@ -39,7 +40,8 @@ void Game::initLevels()
 	levelsScreen = new LevelsScreen();
 	levelsScreen->on("level_clicked", std::function<void(int)>([this](int levelNumber) {
 		std::cout << "Selected level: " << levelNumber << '\n';
-		state = GAME; //пока так
+		state = GAME;
+		gameScreen->activate();
 		gameScreen->mapInit(levelNumber);
 	}));
 }
@@ -49,6 +51,9 @@ void Game::Run()
 	while (!WindowShouldClose() && isRunning) {
 		BeginDrawing();
 		ClearBackground(backgroundColor);
+
+		if (IsKeyPressed(KEY_M)) // на время дебага
+            state = MENU;
 
 		switch (state)
 		{
