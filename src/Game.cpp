@@ -23,6 +23,7 @@ void Game::initMenu()
 
 	menu->on("play_clicked", std::function<void()>([this]() {
 		std::cout << "play button was clicked\n";
+		levelsScreen->activate();
 		state = LEVELS;
 	}));
 
@@ -40,9 +41,9 @@ void Game::initLevels()
 	levelsScreen = new LevelsScreen();
 	levelsScreen->on("level_clicked", std::function<void(int)>([this](int levelNumber) {
 		std::cout << "Selected level: " << levelNumber << '\n';
-		state = GAME;
 		gameScreen->activate();
 		gameScreen->mapInit(levelNumber);
+		state = GAME;
 	}));
 }
 

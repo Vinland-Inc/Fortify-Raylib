@@ -7,7 +7,7 @@ LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
     sharedLocker.height *= 3;
     sharedLocker.width *= 3;
 
-	lastCompletedLevel = loadLastCompletedLevel();
+	lastCompletedLevel = 1;
 
 	const int HORIZONTAL_GAP = 20, VERTICAL_GAP = 200;
 	int row = 0, column = 0;
@@ -26,6 +26,15 @@ LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
         level.isClosed = i >= lastCompletedLevel; 
 		levels.push_back(level);
 	}
+}
+
+void LevelsScreen::activate()
+{
+    lastCompletedLevel = loadLastCompletedLevel();
+    for (Level &level : levels)
+    {
+        level.isClosed = level.levelNumber > lastCompletedLevel;
+    }
 }
 
 void LevelsScreen::process()

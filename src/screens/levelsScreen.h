@@ -38,6 +38,7 @@ public:
 	LevelsScreen();
 	~LevelsScreen();
 
+	void activate();
 	void process();
 private:
     int lastCompletedLevel = 1;
