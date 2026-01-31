@@ -7,7 +7,6 @@ GameScreen::GameScreen() : isMovingByMouse(false), backgroundColor(DARKGRAY), la
     mapInit(LevelConfig::GetConfigById(1));
 
     playerCamera = new PlayerCamera;
-    playerCamera->setCameraTarget({float((map.size() / 2) * CELL_SIZE), float((map[0].size() / 2) * CELL_SIZE)});
     tileMap = LoadTexture("sprites/map/spritesheet.png");
 
     tileSourceRec = {CELL_SIZE - 1, (CELL_SIZE * 8) - 1, CELL_SIZE + 1, CELL_SIZE + 1};
@@ -17,7 +16,7 @@ void GameScreen::activate()
 {
     playerCamera->cameraBeenZoomed = false;
     playerCamera->camera.zoom = 0.2f;
-    playerCamera->setCameraTarget({float((map.size() / 2) * CELL_SIZE), float((map[0].size() / 2) * CELL_SIZE)});
+    playerCamera->setCameraTarget({float(map[0].size() * CELL_SIZE) * 0.5f, float(map.size() * CELL_SIZE) * 0.5f}); // проблема тут не на всех уровнях центр определяется правильно 
 }
 
 void GameScreen::process()
@@ -87,9 +86,9 @@ void GameScreen::handleInput()
 
 void GameScreen::render()
 {
-    for (int i = 0; i < map.size(); ++i) {
-        for (int j = 0; j < map[i].size(); ++j) {
-            if (map[i][j] == TILE_WALL)
+    for (int i = 0; i < map[0].size(); ++i) {
+        for (int j = 0; j < map.size(); ++j) {
+            if (map[j][i] == TILE_WALL)
                 DrawTextureRec(tileMap, tileSourceRec, Vector2{ (float)i * CELL_SIZE, (float)j * CELL_SIZE }, WHITE);
         }
     }
