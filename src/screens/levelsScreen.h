@@ -19,6 +19,12 @@ public:
 	bool isClicked() override;
 	void render() const override;
     void setLocker(Texture2D *lockerPtr);
+    
+	// у каждого уровня будет несколько путей по которым враги смогут передвигаться, потом нужно будет 
+	// дать GameScreen доступ к этому классу и давать врагам путь а также место спавна в зависимости от пути
+	//std::vector<Vector2> path1;
+    //std::vector<Vector2> path2;
+    //std::vector<Vector2> path3;
 	
 	// вот эти 2 переменные и те что в прайват которые закоммичены наверно надо вынести в какуюто структуру по типу
     // LevelsConfig, и наверно надо чтобы GameScreen мог их читать, чтобы брать например количество и тип врагов для
