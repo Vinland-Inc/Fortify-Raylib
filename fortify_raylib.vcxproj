@@ -149,6 +149,7 @@
     <ClInclude Include="src\eventhandler\EventHandler.h" />
     <ClInclude Include="src\Extensions.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\levels\LevelData.h" />
     <ClInclude Include="src\screens\gameScreen.h" />
     <ClInclude Include="src\screens\levelsScreen.h" />
     <ClInclude Include="src\screens\menuScreen.h" />

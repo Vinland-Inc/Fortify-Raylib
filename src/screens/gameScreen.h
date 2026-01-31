@@ -4,6 +4,7 @@
 #include <map>
 #include "raylib.h"
 #include "playerCamera.h"
+#include "../levels/LevelData.h"
 
 #define CELL_SIZE 16
 #define TILE_WALL 1
@@ -19,7 +20,7 @@ class GameScreen
     void activate();
     void process();
     void render();
-    void mapInit(int levelNumber);
+    void mapInit(LevelConfig levelConfig);
   private:
     void handleClick();
     void handleInput(); //чтобы обработать нажатие клавиатуры
@@ -36,5 +37,4 @@ class GameScreen
 
 
     Color colorrr = WHITE; // эт цвет объекта строительства, потом уберем в какой нибудь BuildingManager
-    std::map<int, std::string> levelPaths; // это тоже должно быть не тут я не ебу куда кинуть
 };

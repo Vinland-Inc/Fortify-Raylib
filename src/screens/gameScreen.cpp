@@ -4,9 +4,7 @@
 
 GameScreen::GameScreen() : isMovingByMouse(false), backgroundColor(DARKGRAY), lastPos({})
 {
-    levelPaths[1] = "src/.level_01.txt";
-
-    mapInit(1);
+    mapInit(LevelConfig::GetConfigById(1));
 
     playerCamera = new PlayerCamera;
     playerCamera->setCameraTarget({float((map.size() / 2) * CELL_SIZE), float((map[0].size() / 2) * CELL_SIZE)});
@@ -97,9 +95,9 @@ void GameScreen::render()
     }
 }
 
-void GameScreen::mapInit(int levelNumber)
+void GameScreen::mapInit(LevelConfig levelConfig)
 {
-    std::fstream file(levelPaths[levelNumber]);
+    std::fstream file(levelConfig.mapPath);
 
     if (!file.is_open())
     {

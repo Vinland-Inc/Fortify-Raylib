@@ -2,14 +2,14 @@
 #include "raylib.h"
 #include "../Extensions.h"
 #include "../eventhandler/EventHandler.h"
+#include "../levels/LevelData.h"
 
 #define LEVEL_BUTTON_WIDTH 400
 #define LEVEL_BUTTON_HEIGHT 200
 
 class Level final : public extensions::Button { //final значит, что нельзя наследоваться от этого класса дальше
 public: 
-	int levelNumber;
-	std::string name;
+	LevelConfig config;
 	bool isClosed;
 
 	Level();
@@ -20,20 +20,8 @@ public:
 	void render() const override;
     void setLocker(Texture2D *lockerPtr);
     
-	// у каждого уровня будет несколько путей по которым враги смогут передвигаться, потом нужно будет 
-	// дать GameScreen доступ к этому классу и давать врагам путь а также место спавна в зависимости от пути
-	//std::vector<Vector2> path1;
-    //std::vector<Vector2> path2;
-    //std::vector<Vector2> path3;
 	
-	// вот эти 2 переменные и те что в прайват которые закоммичены наверно надо вынести в какуюто структуру по типу
-    // LevelsConfig, и наверно надо чтобы GameScreen мог их читать, чтобы брать например количество и тип врагов для
-    // спавна на уровне, карту, название, и дохуя чего чего еще
-    // Texture2D getLevelTexture(int level);
-    // std::string getLevelName(int level);
   private:
-    //Texture2D levelTextures[8];
-	//std::string levelNames[8];
 	Texture2D* locker;
 };
 

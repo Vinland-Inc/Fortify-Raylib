@@ -42,7 +42,7 @@ void Game::initLevels()
 	levelsScreen->on("level_clicked", std::function<void(int)>([this](int levelNumber) {
 		std::cout << "Selected level: " << levelNumber << '\n';
 		gameScreen->activate();
-		gameScreen->mapInit(levelNumber);
+		gameScreen->mapInit(LevelConfig::GetConfigById(levelNumber));
 		state = GAME;
 	}));
 }

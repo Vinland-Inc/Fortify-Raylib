@@ -15,15 +15,16 @@ LevelsScreen::LevelsScreen() : EventHandler(), backgroundColor(BLACK)
 		column = i % 4; // 0, 1, 2, 3, 0, 1, 2, 3
 		row = i / 4;    // 0, 0, 0, 0, 1, 1, 1, 1
 
+		LevelConfig levelConfig = LevelConfig::GetConfigById(i + 1);
+
 		Level level;
-		level.levelNumber = i + 1;
-		level.name = "Dangerous dungeon";
-		level.texture = LoadTexture("sprites/map/spritesheet.png");
+        level.config = levelConfig;
+        level.texture = LoadTexture(level.config.mapTexturePath);
         level.setLocker(&sharedLocker);
 		float x = float(screenWidth / 2) - 840 + column * (LEVEL_BUTTON_WIDTH + HORIZONTAL_GAP);
 		float y = float(screenHeight / 2) - 330 + row * (LEVEL_BUTTON_HEIGHT + VERTICAL_GAP); 
 		level.rect = { x, y, LEVEL_BUTTON_WIDTH, LEVEL_BUTTON_HEIGHT };
-        level.isClosed = i >= lastCompletedLevel; 
+        level.isClosed = level.config.id > lastCompletedLevel; 
 		levels.push_back(level);
 	}
 }
@@ -33,7 +34,7 @@ void LevelsScreen::activate()
     lastCompletedLevel = loadLastCompletedLevel();
     for (Level &level : levels)
     {
-        level.isClosed = level.levelNumber > lastCompletedLevel;
+        level.isClosed = level.config.id > lastCompletedLevel;
     }
 }
 
@@ -43,7 +44,7 @@ void LevelsScreen::process()
 		level.hover();
 
 		if (level.isClicked())
-			emit("level_clicked", level.levelNumber);
+            emit("level_clicked", level.config.id);
 		
 		level.render();
 	}
@@ -51,7 +52,7 @@ void LevelsScreen::process()
 
 int LevelsScreen::loadLastCompletedLevel() const
 {
-    std::fstream file("src/.last_completed_level.txt");
+    std::fstream file("src/levels/.last_completed_level.txt");
     if (!file.is_open())
     {
         std::cerr << "Couldn't open the file for reading\n";
@@ -68,7 +69,7 @@ LevelsScreen::~LevelsScreen()
     UnloadTexture(sharedLocker);
 }
 
-Level::Level() : extensions::Button(), isClosed(true), levelNumber(0)
+Level::Level() : extensions::Button(), isClosed(true)
 { 
 }
 
@@ -110,7 +111,7 @@ void Level::render() const
 	}
 
 	DrawText(
-		name.c_str(), //чтобы из string в const char*
+		config.name.c_str(), //чтобы из string в const char*
 		rect.x + 10, 
 		rect.y + texture.height + 50, 
 		24, 
