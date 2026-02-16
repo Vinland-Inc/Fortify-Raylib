@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include "playerCamera.h"
 #include "../levels/LevelData.h"
+#include "../entities/enemy.h"
 
 #define CELL_SIZE 16
 #define TILE_WALL 1
@@ -25,6 +26,7 @@ class GameScreen
     void handleClick();
     void handleInput(); //чтобы обработать нажатие клавиатуры
 
+    LevelConfig currentLevel;
     std::vector<std::vector<int>> map;
 
     Texture2D tileMap;
@@ -37,4 +39,8 @@ class GameScreen
 
 
     Color colorrr = WHITE; // эт цвет объекта строительства, потом уберем в какой нибудь BuildingManager
+
+
+
+    Enemy enemy; // потом динамический массив будет
 };

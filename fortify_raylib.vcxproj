@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\audio\SoundPlayer.cpp" />
+    <ClCompile Include="src\entities\enemy.cpp" />
     <ClCompile Include="src\eventhandler\EventHandler.cpp" />
     <ClCompile Include="src\Extensions.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\audio\SoundPlayer.h" />
+    <ClInclude Include="src\entities\enemy.h" />
     <ClInclude Include="src\eventhandler\EventHandler.h" />
     <ClInclude Include="src\Extensions.h" />
     <ClInclude Include="src\Game.h" />

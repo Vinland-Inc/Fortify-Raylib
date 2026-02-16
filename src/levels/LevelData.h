@@ -3,6 +3,8 @@
 #include <vector>
 #include "raylib.h"
 
+#define CELL_SIZE 16
+
 struct LevelConfig
 {
     int id;
@@ -23,7 +25,7 @@ struct LevelConfig
                 "src/levels/.level_01.txt",
                 "sprites/map/spritesheet.png",
                 {
-                    { {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0} }
+                    { {14 * CELL_SIZE,3 * CELL_SIZE}, {3 * CELL_SIZE,3 * CELL_SIZE}, {3 * CELL_SIZE, 17 * CELL_SIZE}, {0,0}, {0,0}, {0,0} }
                 },
                 10
             };

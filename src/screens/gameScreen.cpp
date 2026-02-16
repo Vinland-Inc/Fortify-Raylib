@@ -4,7 +4,10 @@
 
 GameScreen::GameScreen() : isMovingByMouse(false), backgroundColor(DARKGRAY), lastPos({})
 {
-    mapInit(LevelConfig::GetConfigById(1));
+    currentLevel = LevelConfig::GetConfigById(1);
+    mapInit(currentLevel);
+
+    enemy.init({200, -100}, currentLevel.waypoints[0]);
 
     playerCamera = new PlayerCamera;
     tileMap = LoadTexture("sprites/map/spritesheet.png");
@@ -37,14 +40,15 @@ void GameScreen::process()
     //DrawTexture(tileMap, GetMouseX() - tileMap.width / 2, GetMouseY() - tileMap.height / 2, colorrr);
     //DrawText(TextFormat("mouseX: %d\n\nmouseY: %d", mouseGridX, mouseGridY), 15, 50, 25, WHITE);
 
-
     BeginMode2D(playerCamera->camera);
 
     playerCamera->cameraBeenZoomed ? playerCamera->process() : playerCamera->zoomCamera();
 
-    
+
 
     render();
+    enemy.process();
+
     EndMode2D();
     DrawFPS(15, 15);
 }
